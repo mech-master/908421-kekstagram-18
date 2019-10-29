@@ -45,7 +45,7 @@
     var newGallery = incomingData.slice();
     switch (idName) {
       case 'filter-random':
-        newGallery.sort(function (left, right) {
+        newGallery.sort(function () {
           return Math.random() - 0.5;
         });
         newGallery.length = RANDOM_GALLERY_COUNT;
@@ -76,12 +76,6 @@
       }, DEBOUNCE_DELAY);
     }
   };
-
-  var onEnterFilterKeydown = function (evt) {
-    if (evt.keyCode === window.common.Keycode.ENTER) {
-      onFilterClick(evt);
-    }
-  }
 
   filterContainerElement.addEventListener('click', onFilterClick);
 

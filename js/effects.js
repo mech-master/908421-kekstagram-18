@@ -202,7 +202,7 @@
       if (lowerCaseArray.lastIndexOf(lowerCaseArray[j]) !== j && lowerCaseArray.lastIndexOf(lowerCaseArray[j]) !== -1) {
         return 'Не должно быть повторяющихся хеш-тегов, таких как ' + array[j];
       }
-    };
+    }
     for (var i = 0; i < array.length; i++) {
       var currentItem = array[i];
       if (currentItem.length === 1 && currentItem === '#') {

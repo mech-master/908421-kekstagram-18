@@ -12,34 +12,11 @@
   var filterContainerElement = document.querySelector('.img-filters');
   var incomingData;
 
-  var getRandomValue = function (minValue, maxValue) {
-    var difference = maxValue - minValue;
-    return (minValue + Math.round(Math.random() * difference));
-  };
-
-  var shuffleArray = function (array) {
-    var arrayCopy = array.slice();
-    var j;
-    var temp;
-    for (var i = arrayCopy.length - 1; i > 0; i--) {
-      j = getRandomValue(0, i);
-      temp = arrayCopy[j];
-      arrayCopy[j] = arrayCopy[i];
-      arrayCopy[i] = temp;
-    }
-    return arrayCopy;
-  };
-
   var setHandlerPictureClick = function (galleryItem, arrayItem) {
     galleryItem.addEventListener('click', function (evt) {
       evt.preventDefault();
       document.body.classList.add('modal-open');
       window.preview.fillPreview(arrayItem);
-    });
-    galleryItem.addEventListener('click', function (evt) {
-      if (evt.keyCode === window.common.Keycode.ENTER) {
-        galleryItem.click();
-      }
     });
   };
 
@@ -65,9 +42,12 @@
   };
 
   var onGalleryFilter = function (idName) {
-    var newGallery = shuffleArray(incomingData.slice());
+    var newGallery = incomingData.slice();
     switch (idName) {
       case 'filter-random':
+        newGallery.sort(function (left, right) {
+          return Math.random() - 0.5;
+        });
         newGallery.length = RANDOM_GALLERY_COUNT;
         fillGallery(newGallery);
         break;
@@ -96,6 +76,12 @@
       }, DEBOUNCE_DELAY);
     }
   };
+
+  var onEnterFilterKeydown = function (evt) {
+    if (evt.keyCode === window.common.Keycode.ENTER) {
+      onFilterClick(evt);
+    }
+  }
 
   filterContainerElement.addEventListener('click', onFilterClick);
 

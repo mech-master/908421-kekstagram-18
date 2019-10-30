@@ -40,6 +40,7 @@
       item.addEventListener('keydown', onEnterErrorClose);
     });
     documentMainElement.appendChild(errorModalElement);
+    errorButtonElements[0].focus();
   };
 
   var onSuccessModalShow = function () {
@@ -64,13 +65,12 @@
       }
     };
 
-    successButtonElement.focus();
-
     successModalElement.addEventListener('click', onSuccessModalClose);
     document.addEventListener('keydown', onEscSuccessClose);
     successButtonElement.addEventListener('keydown', onEnterSuccessClose);
 
     documentMainElement.insertBefore(successModalElement, documentMainElement.firstChild);
+    successButtonElement.focus();
   };
 
   window.common = {

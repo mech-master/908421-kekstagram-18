@@ -6,6 +6,7 @@
   var comments;
   var commentsContainerElement = document.querySelector('.social__comments');
   var buttonCommentsLoadElement = document.querySelector('.comments-loader');
+  var commentsTitleElement = document.querySelector('.social__comment-count');
 
   var fillCommentSection = function (commentList) {
     commentList.forEach(function (item) {
@@ -14,14 +15,17 @@
       htmlContent += item.message + '</p></li>';
       commentsContainerElement.insertAdjacentHTML('beforeend', htmlContent);
     });
+    var commentElements = bigPictureElement.querySelectorAll('.social__comment');
+    commentsTitleElement.innerHTML = commentElements.length + commentsTitleElement.innerHTML.substr(commentsTitleElement.textContent.indexOf(' из'));
   };
+
   var fillPreview = function (arrayItem) {
     bigPictureElement.querySelector('.big-picture__img img').src = arrayItem.url;
     bigPictureElement.querySelector('.likes-count').textContent = arrayItem.likes;
-    bigPictureElement.querySelector('.comments-count').textContent = arrayItem.comments.length;
     commentsContainerElement.innerHTML = '';
     comments = arrayItem.comments;
     fillCommentSection(comments.slice(0, COMMENTS_LOAD_STEP));
+    bigPictureElement.querySelector('.comments-count').textContent = arrayItem.comments.length;
     buttonCommentsLoadElement.classList.toggle('hidden', comments.length <= COMMENTS_LOAD_STEP);
     bigPictureElement.querySelector('.social__caption').textContent = arrayItem.description;
     document.addEventListener('keydown', onEscBigPictureClose);
@@ -40,7 +44,6 @@
   };
   buttonBigPictureClose.addEventListener('click', onBigPictureClose);
 
-  document.querySelector('.social__comment-count').classList.add('visually-hidden');
   var onButtonCommentsLoadClick = function () {
     var commentElements = bigPictureElement.querySelectorAll('.social__comment');
     var additionCommentCount = (commentElements.length + COMMENTS_LOAD_STEP <= comments.length) ? COMMENTS_LOAD_STEP : comments.length - commentElements.length;

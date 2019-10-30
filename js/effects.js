@@ -19,7 +19,6 @@
   var buttonEffectsFormCloseElement = effectsSectionElement.querySelector('#upload-cancel');
   var previewContainerElement = document.querySelector('.img-upload__preview');
   var previewImageElement = previewContainerElement.querySelector('.img-upload__preview img');
-  var defaulImageLink = '';
 
   var buttonZoomInElement = document.querySelector('.scale__control--bigger');
   var buttonZoomOutElement = document.querySelector('.scale__control--smaller');
@@ -57,9 +56,6 @@
   };
 
   buttonUploadFileElement.addEventListener('change', function () {
-    if (!defaulImageLink) {
-      defaulImageLink = previewImageElement.src;
-    }
     var file = buttonUploadFileElement.files[0];
     var fileName = file.name.toLowerCase();
     var matches = FILE_TYPES.some(function (item) {
@@ -170,11 +166,9 @@
       startPositionX = evtMousemove.clientX;
 
       var currentPinX = effectsPinElement.offsetLeft + effectsPinElement.offsetWidth / 2;
-
       if (currentPinX - shiftX >= (PIN_MIN_POSITION_LEFT - PIN_WIDTH / 2) && currentPinX - shiftX <= PIN_MAX_POSITION_RIGHT - PIN_WIDTH / 2) {
         effectsPinElement.style.left = effectsPinElement.offsetLeft - shiftX + 'px';
       }
-
       onEffectsApply();
     };
 
